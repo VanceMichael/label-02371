@@ -69,9 +69,11 @@ CREATE TABLE `booking` (
     `remark` VARCHAR(500) DEFAULT NULL COMMENT '备注',
     `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `version` INT NOT NULL DEFAULT 1 COMMENT '乐观锁版本号',
     PRIMARY KEY (`id`),
     KEY `idx_user_id` (`user_id`),
-    KEY `idx_room_id` (`room_id`)
+    KEY `idx_room_id` (`room_id`),
+    KEY `idx_room_date_status` (`room_id`, `check_in_date`, `check_out_date`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='预订表';
 
 -- 操作日志表
@@ -144,15 +146,15 @@ INSERT INTO `room` (`hotel_id`, `room_type`, `name`, `price`, `capacity`, `ameni
 
 
 -- 初始化预订数据
-INSERT INTO `booking` (`user_id`, `room_id`, `check_in_date`, `check_out_date`, `total_price`, `status`, `remark`, `created_at`) VALUES
-(3, 1, '2026-03-01', '2026-03-03', 5776.00, 0, '需要高楼层房间', '2026-02-20 10:30:00'),
-(3, 4, '2026-03-10', '2026-03-12', 4576.00, 1, '商务出差，需要发票', '2026-02-21 14:20:00'),
-(4, 6, '2026-03-05', '2026-03-07', 3376.00, 2, '蜜月旅行', '2026-02-18 09:15:00'),
-(4, 9, '2026-04-01', '2026-04-05', 7952.00, 1, '家庭度假，有两个小孩', '2026-02-22 16:45:00'),
-(5, 2, '2026-03-15', '2026-03-17', 9776.00, 0, '公司年会', '2026-02-23 11:00:00'),
-(5, 11, '2026-03-20', '2026-03-22', 2576.00, 3, '周末休闲', '2026-02-10 08:30:00'),
-(6, 7, '2026-03-08', '2026-03-10', 5776.00, 4, '行程取消', '2026-02-15 13:20:00'),
-(6, 13, '2026-04-10', '2026-04-12', 3776.00, 1, '出差深圳', '2026-02-24 17:30:00');
+INSERT INTO `booking` (`user_id`, `room_id`, `check_in_date`, `check_out_date`, `total_price`, `status`, `remark`, `created_at`, `version`) VALUES
+(3, 1, '2026-03-01', '2026-03-03', 5776.00, 0, '需要高楼层房间', '2026-02-20 10:30:00', 1),
+(3, 4, '2026-03-10', '2026-03-12', 4576.00, 1, '商务出差，需要发票', '2026-02-21 14:20:00', 1),
+(4, 6, '2026-03-05', '2026-03-07', 3376.00, 2, '蜜月旅行', '2026-02-18 09:15:00', 1),
+(4, 9, '2026-04-01', '2026-04-05', 7952.00, 1, '家庭度假，有两个小孩', '2026-02-22 16:45:00', 1),
+(5, 2, '2026-03-15', '2026-03-17', 9776.00, 0, '公司年会', '2026-02-23 11:00:00', 1),
+(5, 11, '2026-03-20', '2026-03-22', 2576.00, 3, '周末休闲', '2026-02-10 08:30:00', 1),
+(6, 7, '2026-03-08', '2026-03-10', 5776.00, 4, '行程取消', '2026-02-15 13:20:00', 1),
+(6, 13, '2026-04-10', '2026-04-12', 3776.00, 1, '出差深圳', '2026-02-24 17:30:00', 1);
 
 -- 初始化操作日志数据
 INSERT INTO `operation_log` (`user_id`, `username`, `module`, `operation`, `method`, `params`, `ip`, `duration`, `created_at`) VALUES

@@ -13,6 +13,8 @@ import com.hotel.util.UserContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -39,35 +41,36 @@ public class BookingService {
         return bookingMapper.selectWithDetail(id);
     }
 
+    /**
+     * 创建预订 - 使用悲观锁防止并发重复预订
+     * 通过先锁定房间记录，再检查冲突来确保不会重复预订
+     */
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     public void create(BookingRequest request) {
-        Room room = roomMapper.selectById(request.getRoomId());
+        // 1. 基础参数校验
+        validateBookingRequest(request);
+
+        // 2. 先锁定房间记录 - 这是关键！确保同一时间只有一个事务能处理该房间的预订
+        Room room = roomMapper.selectByIdForUpdate(request.getRoomId());
         if (room == null || room.getStatus() != 1) {
             throw new BusinessException("房间不可用");
         }
 
-        // 校验入住日期不能早于今天
-        if (request.getCheckInDate().isBefore(LocalDate.now())) {
-            throw new BusinessException("入住日期不能早于今天");
-        }
-
-        if (request.getCheckInDate().isAfter(request.getCheckOutDate()) ||
-            request.getCheckInDate().isEqual(request.getCheckOutDate())) {
-            throw new BusinessException("入住日期必须早于离店日期");
-        }
-
-        // 检查房间在该日期范围内是否有冲突预订
+        // 3. 检查是否有冲突预订（在持有房间锁的情况下）
         int conflictCount = bookingMapper.countConflictBookings(
             request.getRoomId(),
             request.getCheckInDate(),
             request.getCheckOutDate()
         );
         if (conflictCount > 0) {
-            throw new BusinessException("该房间在所选日期范围内已被预订，请选择其他日期或房间");
+            throw new BusinessException(409, "该房间在所选日期范围内已被预订，请选择其他日期或房间");
         }
 
+        // 4. 计算价格
         long days = ChronoUnit.DAYS.between(request.getCheckInDate(), request.getCheckOutDate());
         BigDecimal totalPrice = room.getPrice().multiply(BigDecimal.valueOf(days));
 
+        // 5. 创建预订
         Booking booking = new Booking();
         booking.setUserId(UserContext.getUserId());
         booking.setRoomId(request.getRoomId());
@@ -77,9 +80,33 @@ public class BookingService {
         booking.setStatus(BookingStatus.PENDING.getCode());
         booking.setRemark(request.getRemark());
         bookingMapper.insert(booking);
+
+        // 6. 插入后再次验证（双重检查）- 确保没有并发插入
+        int verifyConflictCount = bookingMapper.countConflictBookings(
+            request.getRoomId(),
+            request.getCheckInDate(),
+            request.getCheckOutDate()
+        );
+        if (verifyConflictCount > 1) {
+            log.error("检测到重复预订，roomId={}, checkIn={}, checkOut={}, count={}",
+                request.getRoomId(), request.getCheckInDate(), request.getCheckOutDate(), verifyConflictCount);
+            throw new BusinessException(409, "预订冲突，请重试");
+        }
+
         log.info("创建预订: userId={}, roomId={}, checkIn={}, checkOut={}",
             booking.getUserId(), booking.getRoomId(),
             request.getCheckInDate(), request.getCheckOutDate());
+    }
+
+    private void validateBookingRequest(BookingRequest request) {
+        if (request.getCheckInDate().isBefore(LocalDate.now())) {
+            throw new BusinessException("入住日期不能早于今天");
+        }
+
+        if (request.getCheckInDate().isAfter(request.getCheckOutDate()) ||
+            request.getCheckInDate().isEqual(request.getCheckOutDate())) {
+            throw new BusinessException("入住日期必须早于离店日期至少1天");
+        }
     }
 
     public void cancel(Long id) {

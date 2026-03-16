@@ -1,15 +1,36 @@
 <template>
-  <div class="booking-page container" v-if="room">
+  <div
+    v-if="room"
+    class="booking-page container"
+  >
     <div class="page-top fade-in-up">
-      <button class="back-link" @click="$router.back()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <button
+        class="back-link"
+        @click="$router.back()"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+        ><path
+          d="M19 12H5M12 19l-7-7 7-7"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        /></svg>
         返回
       </button>
       <h1>确认预订</h1>
     </div>
 
     <div class="booking-layout">
-      <form class="booking-form card fade-in-up" style="animation-delay: 0.1s" @submit.prevent="handleSubmit">
+      <form
+        class="booking-form card fade-in-up"
+        style="animation-delay: 0.1s"
+        @submit.prevent="handleSubmit"
+      >
         <h3>预订信息</h3>
         <div class="form-row">
           <DatePicker 
@@ -21,34 +42,53 @@
           <DatePicker 
             v-model="form.checkOutDate" 
             label="离店日期" 
-            :min="today" 
+            :min="minCheckOut" 
             required 
           />
         </div>
         <div class="form-group">
           <label>备注信息</label>
-          <textarea v-model="form.remark" class="input" rows="3" placeholder="如有特殊需求请在此说明（选填）"></textarea>
+          <textarea
+            v-model="form.remark"
+            class="input"
+            rows="3"
+            placeholder="如有特殊需求请在此说明（选填）"
+          />
         </div>
-        <button type="submit" class="btn btn-primary btn-block" :disabled="loading">
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          :disabled="loading || !isFormValid"
+        >
           {{ loading ? '提交中...' : '确认预订' }}
         </button>
       </form>
 
-      <div class="booking-summary fade-in-up" style="animation-delay: 0.15s">
+      <div
+        class="booking-summary fade-in-up"
+        style="animation-delay: 0.15s"
+      >
         <div class="summary-card card">
           <h3>预订摘要</h3>
-          <div class="summary-hotel">{{ room.hotelName }}</div>
-          <div class="summary-room">{{ room.name }} · {{ room.roomType }}</div>
-          <div class="summary-divider"></div>
+          <div class="summary-hotel">
+            {{ room.hotelName }}
+          </div>
+          <div class="summary-room">
+            {{ room.name }} · {{ room.roomType }}
+          </div>
+          <div class="summary-divider" />
           <div class="summary-row">
             <span>房价/晚</span>
             <span>¥{{ room.price }}</span>
           </div>
-          <div class="summary-row" v-if="nights > 0">
+          <div
+            v-if="nights > 0"
+            class="summary-row"
+          >
             <span>入住天数</span>
             <span>{{ nights }} 晚</span>
           </div>
-          <div class="summary-divider"></div>
+          <div class="summary-divider" />
           <div class="summary-total">
             <span>总计</span>
             <span class="total-price">¥{{ totalPrice || '--' }}</span>
@@ -76,18 +116,22 @@ const form = reactive({ roomId: null, checkInDate: '', checkOutDate: '', remark:
 const minCheckOut = computed(() => {
   if (!form.checkInDate) return today
   const d = new Date(form.checkInDate)
-  d.setDate(d.getDate())
+  d.setDate(d.getDate() + 1)
   return d.toISOString().split('T')[0]
 })
 
 const nights = computed(() => {
   if (!form.checkInDate || !form.checkOutDate) return 0
-  return Math.floor((new Date(form.checkOutDate) - new Date(form.checkInDate)) / 86400000) - 1
+  return Math.floor((new Date(form.checkOutDate) - new Date(form.checkInDate)) / 86400000)
 })
 
 const totalPrice = computed(() => {
   if (!room.value || nights.value <= 0) return 0
   return (room.value.price * nights.value).toFixed(2)
+})
+
+const isFormValid = computed(() => {
+  return form.checkInDate && form.checkOutDate && nights.value > 0
 })
 
 const handleSubmit = async () => {
@@ -160,7 +204,6 @@ onMounted(async () => {
   padding: 28px;
   position: sticky;
   top: 100px;
-  opacity: 0.6;
 
   h3 { font-size: 17px; font-weight: 600; margin-bottom: 20px; color: var(--gray-900); }
 }

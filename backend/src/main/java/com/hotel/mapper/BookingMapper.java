@@ -70,4 +70,15 @@ public interface BookingMapper extends BaseMapper<Booking> {
                                      @Param("checkInDate") LocalDate checkInDate, 
                                      @Param("checkOutDate") LocalDate checkOutDate,
                                      @Param("excludeId") Long excludeId);
+    
+    // 带悲观锁查询冲突预订（用于高并发场景防止幻读）
+    @Select("SELECT COUNT(*) FROM booking " +
+            "WHERE room_id = #{roomId} " +
+            "AND status IN (0, 1, 2) " +
+            "AND check_in_date < #{checkOutDate} " +
+            "AND check_out_date > #{checkInDate} " +
+            "FOR UPDATE")
+    int countConflictBookingsWithLock(@Param("roomId") Long roomId, 
+                                      @Param("checkInDate") LocalDate checkInDate, 
+                                      @Param("checkOutDate") LocalDate checkOutDate);
 }

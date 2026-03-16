@@ -39,7 +39,7 @@ public class BookingController {
         summary = "查询预订详情",
         description = "根据预订 ID 获取预订详细信息，包含房间和酒店名称"
     )
-    @GetMapping("/api/bookings/{id}")
+    @GetMapping("/api/bookings/{id:\\d+}")
     public Result<Booking> getById(
             @Parameter(description = "预订ID", required = true) @PathVariable Long id) {
         return Result.success(bookingService.getById(id));

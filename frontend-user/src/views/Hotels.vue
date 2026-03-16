@@ -2,36 +2,113 @@
   <div class="hotels-page">
     <div class="page-hero">
       <div class="container">
-        <h1 class="fade-in-up">探索酒店</h1>
-        <p class="fade-in-up" style="animation-delay: 0.1s">发现适合您的完美住所</p>
-        <div class="search-box fade-in-up" style="animation-delay: 0.2s">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <input v-model="keyword" type="text" class="search-input" placeholder="搜索酒店名称、地点..." @keyup.enter="loadData" />
-          <button class="btn btn-primary" @click="loadData">搜索</button>
+        <h1 class="fade-in-up">
+          探索酒店
+        </h1>
+        <p
+          class="fade-in-up"
+          style="animation-delay: 0.1s"
+        >
+          发现适合您的完美住所
+        </p>
+        <div
+          class="search-box fade-in-up"
+          style="animation-delay: 0.2s"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+          ><circle
+            cx="11"
+            cy="11"
+            r="8"
+            stroke="currentColor"
+            stroke-width="2"
+          /><path
+            d="M21 21l-4.35-4.35"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          /></svg>
+          <input
+            v-model="keyword"
+            type="text"
+            class="search-input"
+            placeholder="搜索酒店名称、地点..."
+            @keyup.enter="loadData"
+          >
+          <button
+            class="btn btn-primary"
+            @click="loadData"
+          >
+            搜索
+          </button>
         </div>
       </div>
     </div>
 
     <div class="container hotel-content">
       <div class="hotel-list">
-        <div v-for="(hotel, i) in hotels" :key="hotel.id" class="hotel-item fade-in-up" :style="{ animationDelay: `${i * 0.06}s` }" @click="$router.push(`/hotels/${hotel.id}`)">
+        <div
+          v-for="(hotel, i) in hotels"
+          :key="hotel.id"
+          class="hotel-item fade-in-up"
+          :style="{ animationDelay: `${i * 0.06}s` }"
+          @click="$router.push(`/hotels/${hotel.id}`)"
+        >
           <div class="hotel-img-wrap">
-            <img :src="hotel.coverImage" :alt="hotel.name" />
+            <img
+              :src="hotel.coverImage"
+              :alt="hotel.name"
+            >
             <div class="hotel-rating">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              ><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
               {{ hotel.rating }}
             </div>
           </div>
           <div class="hotel-body">
             <h3>{{ hotel.name }}</h3>
             <p class="hotel-addr">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/></svg>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+              ><path
+                d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"
+                stroke="currentColor"
+                stroke-width="2"
+              /><circle
+                cx="12"
+                cy="10"
+                r="3"
+                stroke="currentColor"
+                stroke-width="2"
+              /></svg>
               {{ hotel.address }}
             </p>
-            <p class="hotel-desc">{{ hotel.description }}</p>
+            <p class="hotel-desc">
+              {{ hotel.description }}
+            </p>
             <div class="hotel-meta">
               <span class="hotel-phone">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2"/></svg>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                ><path
+                  d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                /></svg>
                 {{ hotel.phone }}
               </span>
             </div>
@@ -39,13 +116,40 @@
         </div>
       </div>
 
-      <div v-if="hotels.length === 0 && !loading" class="empty-state">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M3 21V7l9-4 9 4v14" stroke="var(--gray-300)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21V13h6v8" stroke="var(--gray-300)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div
+        v-if="hotels.length === 0 && !loading"
+        class="empty-state"
+      >
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+        ><path
+          d="M3 21V7l9-4 9 4v14"
+          stroke="var(--gray-300)"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        /><path
+          d="M9 21V13h6v8"
+          stroke="var(--gray-300)"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        /></svg>
         <p>暂无酒店数据</p>
       </div>
 
-      <div v-if="hasMore" class="load-more">
-        <button class="btn btn-outline" :disabled="loading" @click="loadMore">
+      <div
+        v-if="hasMore"
+        class="load-more"
+      >
+        <button
+          class="btn btn-outline"
+          :disabled="loading"
+          @click="loadMore"
+        >
           {{ loading ? '加载中...' : '加载更多' }}
         </button>
       </div>

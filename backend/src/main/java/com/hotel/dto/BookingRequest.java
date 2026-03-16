@@ -1,6 +1,7 @@
 package com.hotel.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -20,10 +21,18 @@ public class BookingRequest {
     @FutureOrPresent(message = "入住日期不能早于今天")
     private LocalDate checkInDate;
 
-    @Schema(description = "离店日期（必须晚于入住日期）", example = "2026-03-17", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "离店日期（必须晚于入住日期至少1天）", example = "2026-03-17", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "离店日期不能为空")
     private LocalDate checkOutDate;
 
     @Schema(description = "备注信息", example = "需要高楼层房间")
     private String remark;
+
+    @AssertTrue(message = "离店日期必须晚于入住日期至少1天")
+    public boolean isValidDateRange() {
+        if (checkInDate == null || checkOutDate == null) {
+            return true;
+        }
+        return checkOutDate.isAfter(checkInDate);
+    }
 }

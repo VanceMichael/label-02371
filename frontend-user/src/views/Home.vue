@@ -1,19 +1,41 @@
 <template>
   <div class="home">
     <section class="hero">
-      <div class="hero-bg"></div>
-      <div class="hero-overlay"></div>
+      <div class="hero-bg" />
+      <div class="hero-overlay" />
       <div class="container hero-content">
         <span class="hero-badge fade-in-up">探索全球精选酒店</span>
-        <h1 class="hero-title fade-in-up" style="animation-delay: 0.1s">
-          发现您的<br /><em>完美住所</em>
+        <h1
+          class="hero-title fade-in-up"
+          style="animation-delay: 0.1s"
+        >
+          发现您的<br><em>完美住所</em>
         </h1>
-        <p class="hero-desc fade-in-up" style="animation-delay: 0.2s">
+        <p
+          class="hero-desc fade-in-up"
+          style="animation-delay: 0.2s"
+        >
           从城市精品到海滨度假，为您甄选全球优质酒店体验
         </p>
-        <router-link to="/hotels" class="btn btn-accent btn-lg fade-in-up" style="animation-delay: 0.3s">
+        <router-link
+          to="/hotels"
+          class="btn btn-accent btn-lg fade-in-up"
+          style="animation-delay: 0.3s"
+        >
           立即探索
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin-left: 8px"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            style="margin-left: 8px"
+          ><path
+            d="M5 12h14M12 5l7 7-7 7"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          /></svg>
         </router-link>
       </div>
     </section>
@@ -24,24 +46,69 @@
           <span class="section-tag">精选推荐</span>
           <h2>热门酒店</h2>
         </div>
-        <router-link to="/hotels" class="btn btn-outline">
+        <router-link
+          to="/hotels"
+          class="btn btn-outline"
+        >
           查看全部
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="margin-left: 6px"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            style="margin-left: 6px"
+          ><path
+            d="M5 12h14M12 5l7 7-7 7"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          /></svg>
         </router-link>
       </div>
       <div class="hotel-grid">
-        <div v-for="(hotel, i) in hotels" :key="hotel.id" class="hotel-card fade-in-up" :style="{ animationDelay: `${0.1 + i * 0.08}s` }" @click="$router.push(`/hotels/${hotel.id}`)">
+        <div
+          v-for="(hotel, i) in hotels"
+          :key="hotel.id"
+          class="hotel-card fade-in-up"
+          :style="{ animationDelay: `${0.1 + i * 0.08}s` }"
+          @click="$router.push(`/hotels/${hotel.id}`)"
+        >
           <div class="hotel-image-wrap">
-            <img :src="hotel.coverImage" :alt="hotel.name" class="hotel-image" />
+            <img
+              :src="hotel.coverImage"
+              :alt="hotel.name"
+              class="hotel-image"
+            >
             <div class="hotel-rating">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              ><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
               {{ hotel.rating }}
             </div>
           </div>
           <div class="hotel-info">
             <h3>{{ hotel.name }}</h3>
             <p class="hotel-address">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/></svg>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+              ><path
+                d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"
+                stroke="currentColor"
+                stroke-width="2"
+              /><circle
+                cx="12"
+                cy="10"
+                r="3"
+                stroke="currentColor"
+                stroke-width="2"
+              /></svg>
               {{ hotel.address }}
             </p>
           </div>

@@ -5,46 +5,130 @@
     </div>
     <div class="card">
       <div class="search-bar">
-        <el-input v-model="query.username" placeholder="搜索用户名..." clearable style="width: 180px" prefix-icon="Search" @keyup.enter="loadData" />
-        <el-select v-model="query.module" placeholder="选择模块" clearable style="width: 160px" @change="loadData">
-          <el-option label="认证" value="认证" />
-          <el-option label="用户管理" value="用户管理" />
-          <el-option label="酒店管理" value="酒店管理" />
-          <el-option label="房间管理" value="房间管理" />
-          <el-option label="预订管理" value="预订管理" />
+        <el-input
+          v-model="query.username"
+          placeholder="搜索用户名..."
+          clearable
+          style="width: 180px"
+          prefix-icon="Search"
+          @keyup.enter="loadData"
+        />
+        <el-select
+          v-model="query.module"
+          placeholder="选择模块"
+          clearable
+          style="width: 160px"
+          @change="loadData"
+        >
+          <el-option
+            label="认证"
+            value="认证"
+          />
+          <el-option
+            label="用户管理"
+            value="用户管理"
+          />
+          <el-option
+            label="酒店管理"
+            value="酒店管理"
+          />
+          <el-option
+            label="房间管理"
+            value="房间管理"
+          />
+          <el-option
+            label="预订管理"
+            value="预订管理"
+          />
         </el-select>
-        <el-button type="primary" plain @click="loadData">查询</el-button>
+        <el-button
+          type="primary"
+          plain
+          @click="loadData"
+        >
+          查询
+        </el-button>
       </div>
-      <el-table :data="list" v-loading="loading" style="width: 100%">
-        <el-table-column prop="id" label="ID" width="70">
-          <template #default="{ row }"><span class="id-text">#{{ row.id }}</span></template>
+      <el-table
+        v-loading="loading"
+        :data="list"
+        style="width: 100%"
+      >
+        <el-table-column
+          prop="id"
+          label="ID"
+          width="70"
+        >
+          <template #default="{ row }">
+            <span class="id-text">#{{ row.id }}</span>
+          </template>
         </el-table-column>
-        <el-table-column prop="username" label="操作人" width="110">
+        <el-table-column
+          prop="username"
+          label="操作人"
+          width="110"
+        >
           <template #default="{ row }">
             <span :class="row.username ? 'name-text' : 'name-anonymous'">{{ row.username || '匿名用户' }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="module" label="模块" width="100">
+        <el-table-column
+          prop="module"
+          label="模块"
+          width="100"
+        >
           <template #default="{ row }">
             <span class="module-badge">{{ row.module }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="operation" label="操作" width="120" />
-        <el-table-column prop="method" label="方法" show-overflow-tooltip min-width="180">
-          <template #default="{ row }"><code class="method-text">{{ row.method }}</code></template>
+        <el-table-column
+          prop="operation"
+          label="操作"
+          width="120"
+        />
+        <el-table-column
+          prop="method"
+          label="方法"
+          show-overflow-tooltip
+          min-width="180"
+        >
+          <template #default="{ row }">
+            <code class="method-text">{{ row.method }}</code>
+          </template>
         </el-table-column>
-        <el-table-column prop="ip" label="IP地址" width="130" />
-        <el-table-column prop="duration" label="耗时" width="90">
+        <el-table-column
+          prop="ip"
+          label="IP地址"
+          width="130"
+        />
+        <el-table-column
+          prop="duration"
+          label="耗时"
+          width="90"
+        >
           <template #default="{ row }">
             <span :class="['duration', row.duration > 500 ? 'slow' : 'fast']">{{ row.duration }}ms</span>
           </template>
         </el-table-column>
-        <el-table-column prop="createdAt" label="时间" width="170">
-          <template #default="{ row }">{{ formatDateTime(row.createdAt) }}</template>
+        <el-table-column
+          prop="createdAt"
+          label="时间"
+          width="170"
+        >
+          <template #default="{ row }">
+            {{ formatDateTime(row.createdAt) }}
+          </template>
         </el-table-column>
       </el-table>
       <div class="pagination-wrap">
-        <el-pagination background layout="total, prev, pager, next" :total="total" :page-size="query.size" v-model:current-page="query.current" @current-change="loadData" />
+        <el-pagination
+          v-model:current-page="query.current"
+          background
+          layout="total, prev, pager, next"
+          :total="total"
+          :page-size="query.size"
+          @current-change="loadData"
+        />
       </div>
     </div>
   </div>

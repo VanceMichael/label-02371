@@ -1,9 +1,31 @@
 <template>
-  <div class="date-picker" :class="{ focused: showCalendar }" @click="showCalendar = true">
+  <div
+    class="date-picker"
+    :class="{ focused: showCalendar }"
+    @click="showCalendar = true"
+  >
     <div class="date-picker-icon">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
-        <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <rect
+          x="3"
+          y="4"
+          width="18"
+          height="18"
+          rx="2"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+        <path
+          d="M16 2v4M8 2v4M3 10h18"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
       </svg>
     </div>
     <div class="date-picker-content">
@@ -12,23 +34,60 @@
     </div>
     
     <Teleport to="body">
-      <div v-if="showCalendar" class="calendar-overlay" @click.self="showCalendar = false">
+      <div
+        v-if="showCalendar"
+        class="calendar-overlay"
+        @click.self="showCalendar = false"
+      >
         <div class="calendar-popup">
           <div class="calendar-header">
-            <button type="button" class="calendar-nav" @click="prevMonth">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <button
+              type="button"
+              class="calendar-nav"
+              @click="prevMonth"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M15 18l-6-6 6-6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </button>
             <span class="calendar-title">{{ currentYear }}年{{ currentMonth + 1 }}月</span>
-            <button type="button" class="calendar-nav" @click="nextMonth">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <button
+              type="button"
+              class="calendar-nav"
+              @click="nextMonth"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M9 18l6-6-6-6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </button>
           </div>
           <div class="calendar-weekdays">
-            <span v-for="day in weekdays" :key="day">{{ day }}</span>
+            <span
+              v-for="day in weekdays"
+              :key="day"
+            >{{ day }}</span>
           </div>
           <div class="calendar-days">
             <button
@@ -49,8 +108,20 @@
             </button>
           </div>
           <div class="calendar-footer">
-            <button type="button" class="calendar-btn calendar-btn-ghost" @click="showCalendar = false">取消</button>
-            <button type="button" class="calendar-btn calendar-btn-primary" @click="confirmDate">确定</button>
+            <button
+              type="button"
+              class="calendar-btn calendar-btn-ghost"
+              @click="showCalendar = false"
+            >
+              取消
+            </button>
+            <button
+              type="button"
+              class="calendar-btn calendar-btn-primary"
+              @click="confirmDate"
+            >
+              确定
+            </button>
           </div>
         </div>
       </div>
@@ -294,12 +365,11 @@ const confirmDate = () => {
   padding: 24px;
   min-width: 320px;
   animation: slideUp 0.25s ease-out;
-  transform: scale(0.95);
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .calendar-header {

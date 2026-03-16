@@ -1,26 +1,66 @@
 <template>
   <div class="bookings-page container">
-    <h1 class="fade-in-up">我的预订</h1>
+    <h1 class="fade-in-up">
+      我的预订
+    </h1>
 
     <div class="booking-list">
-      <div v-for="(booking, i) in bookings" :key="booking.id" class="booking-card card fade-in-up" :style="{ animationDelay: `${i * 0.06}s` }">
+      <div
+        v-for="(booking, i) in bookings"
+        :key="booking.id"
+        class="booking-card card fade-in-up"
+        :style="{ animationDelay: `${i * 0.06}s` }"
+      >
         <div class="booking-left">
-          <div class="booking-hotel">{{ booking.hotelName }}</div>
-          <div class="booking-room">{{ booking.roomName }}</div>
+          <div class="booking-hotel">
+            {{ booking.hotelName }}
+          </div>
+          <div class="booking-room">
+            {{ booking.roomName }}
+          </div>
           <div class="booking-dates">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+            ><rect
+              x="3"
+              y="4"
+              width="18"
+              height="18"
+              rx="2"
+              stroke="currentColor"
+              stroke-width="2"
+            /><path
+              d="M16 2v4M8 2v4M3 10h18"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            /></svg>
             {{ booking.checkInDate }} — {{ booking.checkOutDate }}
           </div>
-          <div class="booking-remark" v-if="booking.remark">{{ booking.remark }}</div>
+          <div
+            v-if="booking.remark"
+            class="booking-remark"
+          >
+            {{ booking.remark }}
+          </div>
         </div>
         <div class="booking-right">
-          <div class="booking-price">¥{{ booking.totalPrice }}</div>
+          <div class="booking-price">
+            ¥{{ booking.totalPrice }}
+          </div>
           <div class="booking-actions">
             <span :class="['status-badge', `status-${booking.status}`]">
-              <span class="status-dot"></span>
+              <span class="status-dot" />
               {{ statusMap[booking.status] }}
             </span>
-            <button v-if="booking.status < 2" class="btn btn-outline btn-sm" @click="handleCancel(booking.id)">
+            <button
+              v-if="booking.status < 2"
+              class="btn btn-outline btn-sm"
+              @click="handleCancel(booking.id)"
+            >
               取消预订
             </button>
           </div>
@@ -28,14 +68,47 @@
       </div>
     </div>
 
-    <div v-if="bookings.length === 0 && !loading" class="empty-state fade-in-up">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="var(--gray-300)" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="var(--gray-300)" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <div
+      v-if="bookings.length === 0 && !loading"
+      class="empty-state fade-in-up"
+    >
+      <svg
+        width="48"
+        height="48"
+        viewBox="0 0 24 24"
+        fill="none"
+      ><rect
+        x="3"
+        y="4"
+        width="18"
+        height="18"
+        rx="2"
+        stroke="var(--gray-300)"
+        stroke-width="1.5"
+      /><path
+        d="M16 2v4M8 2v4M3 10h18"
+        stroke="var(--gray-300)"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      /></svg>
       <p>暂无预订记录</p>
-      <router-link to="/hotels" class="btn btn-primary">去预订</router-link>
+      <router-link
+        to="/hotels"
+        class="btn btn-primary"
+      >
+        去预订
+      </router-link>
     </div>
 
-    <div v-if="hasMore" class="load-more">
-      <button class="btn btn-outline" :disabled="loading" @click="loadMore">
+    <div
+      v-if="hasMore"
+      class="load-more"
+    >
+      <button
+        class="btn btn-outline"
+        :disabled="loading"
+        @click="loadMore"
+      >
         {{ loading ? '加载中...' : '加载更多' }}
       </button>
     </div>

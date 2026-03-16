@@ -3,13 +3,22 @@
     <div class="login-left">
       <div class="brand-content">
         <div class="brand-icon">
-          <el-icon :size="36"><Key /></el-icon>
+          <el-icon :size="36">
+            <Key />
+          </el-icon>
         </div>
         <h1>Hotel<span>Admin</span></h1>
-        <p class="brand-desc">酒店预订管理系统控制台</p>
+        <p class="brand-desc">
+          酒店预订管理系统控制台
+        </p>
         <div class="brand-features">
-          <div class="feature-item" v-for="(f, i) in features" :key="i" :style="{ animationDelay: `${0.2 + i * 0.1}s` }">
-            <div class="feature-dot"></div>
+          <div
+            v-for="(f, i) in features"
+            :key="i"
+            class="feature-item"
+            :style="{ animationDelay: `${0.2 + i * 0.1}s` }"
+          >
+            <div class="feature-dot" />
             <span>{{ f }}</span>
           </div>
         </div>
@@ -18,16 +27,39 @@
     <div class="login-right">
       <div class="login-form-wrapper">
         <h2>欢迎回来</h2>
-        <p class="login-subtitle">请输入管理员账号登录系统</p>
-        <el-form ref="formRef" :model="form" :rules="rules" @keyup.enter="handleLogin" size="large">
+        <p class="login-subtitle">
+          请输入管理员账号登录系统
+        </p>
+        <el-form
+          ref="formRef"
+          :model="form"
+          :rules="rules"
+          size="large"
+          @keyup.enter="handleLogin"
+        >
           <el-form-item prop="username">
-            <el-input v-model="form.username" placeholder="用户名" prefix-icon="Avatar" />
+            <el-input
+              v-model="form.username"
+              placeholder="用户名"
+              prefix-icon="Avatar"
+            />
           </el-form-item>
           <el-form-item prop="password">
-            <el-input v-model="form.password" type="password" placeholder="密码" prefix-icon="Lock" show-password />
+            <el-input
+              v-model="form.password"
+              type="password"
+              placeholder="密码"
+              prefix-icon="Lock"
+              show-password
+            />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" :loading="loading" @click="handleLogin" class="login-btn">
+            <el-button
+              type="primary"
+              :loading="loading"
+              class="login-btn"
+              @click="handleLogin"
+            >
               {{ loading ? '登录中...' : '登录' }}
             </el-button>
           </el-form-item>

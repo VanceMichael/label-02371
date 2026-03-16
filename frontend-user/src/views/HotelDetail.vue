@@ -1,25 +1,74 @@
 <template>
-  <div class="hotel-detail" v-if="hotel">
-    <div class="hero" :style="{ backgroundImage: `url(${hotel.coverImage})` }">
+  <div
+    v-if="hotel"
+    class="hotel-detail"
+  >
+    <div
+      class="hero"
+      :style="{ backgroundImage: `url(${hotel.coverImage})` }"
+    >
       <div class="hero-overlay">
         <div class="container hero-content">
-          <button class="back-btn" @click="$router.back()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <button
+            class="back-btn"
+            @click="$router.back()"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+            ><path
+              d="M19 12H5M12 19l-7-7 7-7"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            /></svg>
             返回
           </button>
           <div class="hero-info">
             <div class="hotel-rating-lg">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              ><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
               {{ hotel.rating }}
             </div>
             <h1>{{ hotel.name }}</h1>
             <div class="hero-meta">
               <span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/></svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                ><path
+                  d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                /><circle
+                  cx="12"
+                  cy="10"
+                  r="3"
+                  stroke="currentColor"
+                  stroke-width="2"
+                /></svg>
                 {{ hotel.address }}
               </span>
               <span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2"/></svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                ><path
+                  d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                /></svg>
                 {{ hotel.phone }}
               </span>
             </div>
@@ -35,18 +84,49 @@
       </section>
 
       <section class="rooms-section">
-        <h2 class="fade-in-up">可预订房间</h2>
+        <h2 class="fade-in-up">
+          可预订房间
+        </h2>
         <div class="room-list">
-          <div v-for="(room, i) in rooms" :key="room.id" class="room-card fade-in-up" :style="{ animationDelay: `${i * 0.06}s` }">
+          <div
+            v-for="(room, i) in rooms"
+            :key="room.id"
+            class="room-card fade-in-up"
+            :style="{ animationDelay: `${i * 0.06}s` }"
+          >
             <div class="room-body">
-              <div class="room-type-badge">{{ room.roomType }}</div>
+              <div class="room-type-badge">
+                {{ room.roomType }}
+              </div>
               <h3>{{ room.name }}</h3>
               <div class="room-capacity">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/></svg>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                ><path
+                  d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"
+                  stroke="currentColor"
+                  stroke-width="2"
+                /><circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                  stroke="currentColor"
+                  stroke-width="2"
+                /></svg>
                 可住 {{ room.capacity }} 人
               </div>
-              <div class="amenities" v-if="room.amenities">
-                <span v-for="(a, j) in parseAmenities(room.amenities)" :key="j" class="amenity-tag">{{ a }}</span>
+              <div
+                v-if="room.amenities"
+                class="amenities"
+              >
+                <span
+                  v-for="(a, j) in parseAmenities(room.amenities)"
+                  :key="j"
+                  class="amenity-tag"
+                >{{ a }}</span>
               </div>
             </div>
             <div class="room-action">
@@ -54,11 +134,19 @@
                 <span class="price-amount">¥{{ room.price }}</span>
                 <span class="price-unit">/晚</span>
               </div>
-              <button class="btn btn-primary" @click="handleBook(room.id)">立即预订</button>
+              <button
+                class="btn btn-primary"
+                @click="handleBook(room.id)"
+              >
+                立即预订
+              </button>
             </div>
           </div>
         </div>
-        <div v-if="rooms.length === 0" class="empty-state">
+        <div
+          v-if="rooms.length === 0"
+          class="empty-state"
+        >
           <p>暂无可预订房间</p>
         </div>
       </section>

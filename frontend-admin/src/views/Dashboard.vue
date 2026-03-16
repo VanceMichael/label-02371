@@ -1,45 +1,109 @@
 <template>
   <div class="dashboard">
     <div class="stats-grid">
-      <div v-for="(item, i) in stats" :key="item.title" class="stat-card" :style="{ animationDelay: `${i * 0.08}s` }">
+      <div
+        v-for="(item, i) in stats"
+        :key="item.title"
+        class="stat-card"
+        :style="{ animationDelay: `${i * 0.08}s` }"
+      >
         <div class="stat-header">
-          <div class="stat-icon" :style="{ background: item.bg }">
-            <el-icon :size="22" :style="{ color: item.color }"><component :is="item.icon" /></el-icon>
+          <div
+            class="stat-icon"
+            :style="{ background: item.bg }"
+          >
+            <el-icon
+              :size="22"
+              :style="{ color: item.color }"
+            >
+              <component :is="item.icon" />
+            </el-icon>
           </div>
-          <div class="stat-trend up" v-if="item.value > 0">
-            <el-icon :size="12"><Top /></el-icon>
+          <div
+            v-if="item.value > 0"
+            class="stat-trend up"
+          >
+            <el-icon :size="12">
+              <Top />
+            </el-icon>
           </div>
         </div>
-        <div class="stat-value">{{ item.value }}</div>
-        <div class="stat-title">{{ item.title }}</div>
+        <div class="stat-value">
+          {{ item.value }}
+        </div>
+        <div class="stat-title">
+          {{ item.title }}
+        </div>
       </div>
     </div>
 
-    <div class="card fade-in-up" style="animation-delay: 0.3s">
+    <div
+      class="card fade-in-up"
+      style="animation-delay: 0.3s"
+    >
       <div class="card-header">
         <h3>最近预订</h3>
-        <el-button text type="primary" @click="$router.push('/bookings')">
-          查看全部 <el-icon class="el-icon--right"><ArrowRight /></el-icon>
+        <el-button
+          text
+          type="primary"
+          @click="$router.push('/bookings')"
+        >
+          查看全部 <el-icon class="el-icon--right">
+            <ArrowRight />
+          </el-icon>
         </el-button>
       </div>
-      <el-table :data="bookings" style="width: 100%">
-        <el-table-column prop="id" label="订单号" width="80">
+      <el-table
+        :data="bookings"
+        style="width: 100%"
+      >
+        <el-table-column
+          prop="id"
+          label="订单号"
+          width="80"
+        >
           <template #default="{ row }">
             <span class="order-id">#{{ row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="username" label="客户" />
-        <el-table-column prop="hotelName" label="酒店" />
-        <el-table-column prop="roomName" label="房间" />
-        <el-table-column prop="checkInDate" label="入住日期" width="120" />
-        <el-table-column prop="totalPrice" label="金额" width="100">
+        <el-table-column
+          prop="username"
+          label="客户"
+        />
+        <el-table-column
+          prop="hotelName"
+          label="酒店"
+        />
+        <el-table-column
+          prop="roomName"
+          label="房间"
+        />
+        <el-table-column
+          prop="checkInDate"
+          label="入住日期"
+          width="120"
+        />
+        <el-table-column
+          prop="totalPrice"
+          label="金额"
+          width="100"
+        >
           <template #default="{ row }">
             <span class="price-text">¥{{ row.totalPrice }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="status" label="状态" width="100">
+        <el-table-column
+          prop="status"
+          label="状态"
+          width="100"
+        >
           <template #default="{ row }">
-            <el-tag :type="statusMap[row.status]?.type" size="small">{{ statusMap[row.status]?.text }}</el-tag>
+            <el-tag
+              :type="statusMap[row.status]?.type"
+              size="small"
+            >
+              {{ statusMap[row.status]?.text }}
+            </el-tag>
           </template>
         </el-table-column>
       </el-table>

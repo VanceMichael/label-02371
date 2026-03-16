@@ -2,23 +2,58 @@
   <div class="auth-page">
     <div class="auth-left">
       <div class="auth-brand">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 21V7l9-4 9 4v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21V13h6v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+        ><path
+          d="M3 21V7l9-4 9 4v14"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        /><path
+          d="M9 21V13h6v8"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        /></svg>
         <h1>Luxstay</h1>
-        <p>加入我们<br />开启精彩旅程</p>
+        <p>加入我们<br>开启精彩旅程</p>
       </div>
     </div>
     <div class="auth-right">
       <div class="auth-form-wrap fade-in-up">
         <h2>创建账户</h2>
-        <p class="auth-subtitle">注册后即可预订全球精选酒店</p>
+        <p class="auth-subtitle">
+          注册后即可预订全球精选酒店
+        </p>
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
             <label>用户名</label>
-            <input v-model="form.username" type="text" class="input" placeholder="3-20个字符" required minlength="3" maxlength="20" />
+            <input
+              v-model="form.username"
+              type="text"
+              class="input"
+              placeholder="3-20个字符"
+              required
+              minlength="3"
+              maxlength="20"
+            >
           </div>
           <div class="form-group">
             <label>密码</label>
-            <input v-model="form.password" type="password" class="input" placeholder="至少6个字符" required minlength="6" maxlength="20" />
+            <input
+              v-model="form.password"
+              type="password"
+              class="input"
+              placeholder="至少6个字符"
+              required
+              minlength="6"
+              maxlength="20"
+            >
           </div>
           <div class="form-row">
             <div class="form-group">
@@ -31,19 +66,35 @@
                 placeholder="11位手机号（选填）" 
                 @blur="validatePhone"
                 @input="clearPhoneError"
-              />
-              <span v-if="phoneError" class="error-msg">{{ phoneError }}</span>
+              >
+              <span
+                v-if="phoneError"
+                class="error-msg"
+              >{{ phoneError }}</span>
             </div>
             <div class="form-group">
               <label>邮箱</label>
-              <input v-model="form.email" type="email" class="input" placeholder="选填" />
+              <input
+                v-model="form.email"
+                type="email"
+                class="input"
+                placeholder="选填"
+              >
             </div>
           </div>
-          <button type="submit" class="btn btn-primary btn-block" :disabled="loading || !!phoneError">
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            :disabled="loading || !!phoneError"
+          >
             {{ loading ? '注册中...' : '注册' }}
           </button>
         </form>
-        <p class="auth-link">已有账号？<router-link to="/login">立即登录</router-link></p>
+        <p class="auth-link">
+          已有账号？<router-link to="/login">
+            立即登录
+          </router-link>
+        </p>
       </div>
     </div>
   </div>

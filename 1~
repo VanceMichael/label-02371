@@ -1,0 +1,48 @@
+Note: Unnecessary use of -X or --request, POST is already inferred.
+Note: Unnecessary use of -X or --request, POST is already inferred.
+* Host localhost:8088 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:8088...
+* Host localhost:8088 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:8088...
+* Connected to localhost (::1) port 8088
+* Connected to localhost (::1) port 8088
+> POST /api/bookings HTTP/1.1
+> Host: localhost:8088
+> User-Agent: curl/8.7.1
+> > POST /api/bookings HTTP/1.1
+> Host: localhost:8088
+> User-Agent: curl/8.7.1
+> Accept: */*
+> Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwidXNlcm5hbWUiOiJ6aGFuZ3NhbiIsInJvbGUiOjAsImlhdCI6MTc3MzQ1OTQwMCwiZXhwIjoxNzczNTQ1ODAwfQ.vBnzFthcF7YPtcIRV576frKclQm-nhPuHd2yDtgjr9h_faXXsPS7JnEGFLZLJVJuXaf7d_AW7In2lmIqP3sy3w
+> Content-Type: application/json
+> Content-Length: 97
+> 
+* upload completely sent off: 97 bytes
+Accept: */*
+> Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwidXNlcm5hbWUiOiJ6aGFuZ3NhbiIsInJvbGUiOjAsImlhdCI6MTc3MzQ1OTQwMCwiZXhwIjoxNzczNTQ1ODAwfQ.vBnzFthcF7YPtcIRV576frKclQm-nhPuHd2yDtgjr9h_faXXsPS7JnEGFLZLJVJuXaf7d_AW7In2lmIqP3sy3w
+> Content-Type: application/json
+> Content-Length: 97
+> 
+* upload completely sent off: 97 bytes
+< HTTP/1.1 200 
+< HTTP/1.1 200 
+< Vary: Origin
+< Vary: Access-Control-Request-Method
+< Vary: Access-Control-Request-Headers
+< Content-Type: application/json;charset=UTF-8
+< Transfer-Encoding: chunked
+< Date: Sat, 14 Mar 2026 03:40:09 GMT
+< 
+< Vary: Origin
+< Vary: Access-Control-Request-Method
+< Vary: Access-Control-Request-Headers
+< Content-Type: application/json;charset=UTF-8
+< Transfer-Encoding: chunked
+< Date: Sat, 14 Mar 2026 03:40:09 GMT
+< 
+* Connection #0 to host localhost left intact
+* Connection #0 to host localhost left intact

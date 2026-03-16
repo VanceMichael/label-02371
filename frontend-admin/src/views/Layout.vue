@@ -1,57 +1,97 @@
 <template>
   <el-container class="layout-container">
-    <el-aside :width="collapsed ? '72px' : '240px'" class="aside">
+    <el-aside
+      :width="collapsed ? '72px' : '240px'"
+      class="aside"
+    >
       <div class="sidebar-header">
         <div class="logo-icon">
-          <el-icon :size="20"><Key /></el-icon>
+          <el-icon :size="20">
+            <Key />
+          </el-icon>
         </div>
         <transition name="fade">
-          <span v-if="!collapsed" class="logo-text">Hotel<span class="logo-accent">Admin</span></span>
+          <span
+            v-if="!collapsed"
+            class="logo-text"
+          >Hotel<span class="logo-accent">Admin</span></span>
         </transition>
       </div>
-      <el-menu :default-active="route.path" router :collapse="collapsed" class="sidebar-menu">
+      <el-menu
+        :default-active="route.path"
+        router
+        :collapse="collapsed"
+        class="sidebar-menu"
+      >
         <el-menu-item index="/dashboard">
           <el-icon><Odometer /></el-icon>
-          <template #title>数据概览</template>
+          <template #title>
+            数据概览
+          </template>
         </el-menu-item>
         <el-menu-item index="/hotels">
           <el-icon><School /></el-icon>
-          <template #title>酒店管理</template>
+          <template #title>
+            酒店管理
+          </template>
         </el-menu-item>
         <el-menu-item index="/rooms">
           <el-icon><Key /></el-icon>
-          <template #title>房间管理</template>
+          <template #title>
+            房间管理
+          </template>
         </el-menu-item>
         <el-menu-item index="/bookings">
           <el-icon><Calendar /></el-icon>
-          <template #title>预订管理</template>
+          <template #title>
+            预订管理
+          </template>
         </el-menu-item>
         <el-menu-item index="/users">
           <el-icon><Avatar /></el-icon>
-          <template #title>用户管理</template>
+          <template #title>
+            用户管理
+          </template>
         </el-menu-item>
         <el-menu-item index="/logs">
           <el-icon><Notebook /></el-icon>
-          <template #title>操作日志</template>
+          <template #title>
+            操作日志
+          </template>
         </el-menu-item>
       </el-menu>
       <div class="sidebar-footer">
-        <el-button text circle @click="collapsed = !collapsed">
-          <el-icon :size="18"><component :is="collapsed ? 'Expand' : 'Fold'" /></el-icon>
+        <el-button
+          text
+          circle
+          @click="collapsed = !collapsed"
+        >
+          <el-icon :size="18">
+            <component :is="collapsed ? 'Expand' : 'Fold'" />
+          </el-icon>
         </el-button>
       </div>
     </el-aside>
     <el-container class="main-container">
       <el-header class="header">
         <div class="header-left">
-          <h2 class="page-title">{{ route.meta.title }}</h2>
+          <h2 class="page-title">
+            {{ route.meta.title }}
+          </h2>
         </div>
         <div class="header-right">
-          <el-dropdown @command="handleCommand" trigger="click">
+          <el-dropdown
+            trigger="click"
+            @command="handleCommand"
+          >
             <div class="user-avatar-wrap">
-              <div class="user-avatar">{{ userStore.userInfo?.username?.charAt(0)?.toUpperCase() }}</div>
+              <div class="user-avatar">
+                {{ userStore.userInfo?.username?.charAt(0)?.toUpperCase() }}
+              </div>
               <span class="user-name">{{ userStore.userInfo?.username }}</span>
-              <el-icon class="arrow-icon"><ArrowDown /></el-icon>
+              <el-icon class="arrow-icon">
+                <ArrowDown />
+              </el-icon>
             </div>
             <template #dropdown>
               <el-dropdown-menu>
@@ -65,7 +105,10 @@
       </el-header>
       <el-main class="main">
         <router-view v-slot="{ Component }">
-          <transition name="page" mode="out-in">
+          <transition
+            name="page"
+            mode="out-in"
+          >
             <component :is="Component" />
           </transition>
         </router-view>

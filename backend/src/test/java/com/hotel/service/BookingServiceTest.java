@@ -64,7 +64,6 @@ class BookingServiceTest {
     void create_checkInBeforeToday_shouldThrow() {
         BookingRequest req = buildRequest(
                 LocalDate.now().minusDays(1), LocalDate.now().plusDays(1));
-        when(roomMapper.selectById(1L)).thenReturn(availableRoom);
 
         BusinessException ex = assertThrows(BusinessException.class,
                 () -> bookingService.create(req));
@@ -76,7 +75,6 @@ class BookingServiceTest {
     void create_sameDate_shouldThrow() {
         LocalDate date = LocalDate.now().plusDays(5);
         BookingRequest req = buildRequest(date, date);
-        when(roomMapper.selectById(1L)).thenReturn(availableRoom);
 
         BusinessException ex = assertThrows(BusinessException.class,
                 () -> bookingService.create(req));
@@ -88,7 +86,6 @@ class BookingServiceTest {
     void create_checkInAfterCheckOut_shouldThrow() {
         BookingRequest req = buildRequest(
                 LocalDate.now().plusDays(5), LocalDate.now().plusDays(3));
-        when(roomMapper.selectById(1L)).thenReturn(availableRoom);
 
         BusinessException ex = assertThrows(BusinessException.class,
                 () -> bookingService.create(req));
@@ -102,8 +99,7 @@ class BookingServiceTest {
     void create_conflictBooking_shouldThrow() {
         BookingRequest req = buildRequest(
                 LocalDate.now().plusDays(1), LocalDate.now().plusDays(3));
-        when(roomMapper.selectById(1L)).thenReturn(availableRoom);
-        when(bookingMapper.countConflictBookings(eq(1L), any(), any())).thenReturn(1);
+        when(bookingMapper.countConflictBookingsWithLock(eq(1L), any(), any())).thenReturn(1);
 
         BusinessException ex = assertThrows(BusinessException.class,
                 () -> bookingService.create(req));
@@ -115,9 +111,10 @@ class BookingServiceTest {
     void create_noConflict_shouldSucceed() {
         BookingRequest req = buildRequest(
                 LocalDate.now().plusDays(1), LocalDate.now().plusDays(3));
-        when(roomMapper.selectById(1L)).thenReturn(availableRoom);
-        when(bookingMapper.countConflictBookings(eq(1L), any(), any())).thenReturn(0);
+        when(bookingMapper.countConflictBookingsWithLock(eq(1L), any(), any())).thenReturn(0);
+        when(roomMapper.selectByIdForUpdate(1L)).thenReturn(availableRoom);
         when(bookingMapper.insert(any(Booking.class))).thenReturn(1);
+        when(bookingMapper.countConflictBookings(eq(1L), any(), any())).thenReturn(1);
 
         assertDoesNotThrow(() -> bookingService.create(req));
         verify(bookingMapper).insert(any(Booking.class));
@@ -200,7 +197,8 @@ class BookingServiceTest {
     void create_roomNotFound_shouldThrow() {
         BookingRequest req = buildRequest(
                 LocalDate.now().plusDays(1), LocalDate.now().plusDays(3));
-        when(roomMapper.selectById(1L)).thenReturn(null);
+        when(bookingMapper.countConflictBookingsWithLock(eq(1L), any(), any())).thenReturn(0);
+        when(roomMapper.selectByIdForUpdate(1L)).thenReturn(null);
 
         BusinessException ex = assertThrows(BusinessException.class,
                 () -> bookingService.create(req));

@@ -1,19 +1,53 @@
 <template>
   <Teleport to="body">
     <Transition name="confirm">
-      <div v-if="visible" class="confirm-overlay" @click.self="handleCancel">
+      <div
+        v-if="visible"
+        class="confirm-overlay"
+        @click.self="handleCancel"
+      >
         <div class="confirm-dialog">
           <div class="confirm-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-              <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="M12 8v4M12 16h.01"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
             </svg>
           </div>
-          <div class="confirm-title">{{ title }}</div>
-          <div class="confirm-message">{{ message }}</div>
+          <div class="confirm-title">
+            {{ title }}
+          </div>
+          <div class="confirm-message">
+            {{ message }}
+          </div>
           <div class="confirm-actions">
-            <button class="btn btn-outline" @click="handleCancel">取消</button>
-            <button class="btn btn-primary" @click="handleConfirm">确认</button>
+            <button
+              class="btn btn-outline"
+              @click="handleCancel"
+            >
+              取消
+            </button>
+            <button
+              class="btn btn-primary"
+              @click="handleConfirm"
+            >
+              确认
+            </button>
           </div>
         </div>
       </div>

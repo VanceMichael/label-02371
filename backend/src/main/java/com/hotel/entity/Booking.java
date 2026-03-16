@@ -23,6 +23,9 @@ public class Booking {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updatedAt;
     
+    @Version
+    private Integer version;
+    
     @TableField(exist = false)
     private String username;
     @TableField(exist = false)

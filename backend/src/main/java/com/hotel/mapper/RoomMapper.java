@@ -22,4 +22,8 @@ public interface RoomMapper extends BaseMapper<Room> {
             "ORDER BY r.created_at DESC" +
             "</script>")
     IPage<Room> selectPageWithHotel(Page<Room> page, @Param("hotelId") Long hotelId, @Param("status") Integer status);
+    
+    // 带悲观锁查询房间，用于防止并发预订
+    @Select("SELECT * FROM room WHERE id = #{id} FOR UPDATE")
+    Room selectByIdForUpdate(@Param("id") Long id);
 }

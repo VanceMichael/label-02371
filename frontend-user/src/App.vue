@@ -1,37 +1,119 @@
 <template>
-  <div id="app" :class="{ 'full-page': isFullPage }">
-    <header v-if="!isFullPage" class="header" :class="{ scrolled: isScrolled }">
+  <div
+    id="app"
+    :class="{ 'full-page': isFullPage }"
+  >
+    <header
+      v-if="!isFullPage"
+      class="header"
+      :class="{ scrolled: isScrolled }"
+    >
       <div class="container header-content">
-        <router-link to="/" class="logo">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 21V7l9-4 9 4v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9 21V13h6v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <router-link
+          to="/"
+          class="logo"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3 21V7l9-4 9 4v14"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M9 21V13h6v8"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
           <span>Luxstay</span>
         </router-link>
         <nav class="nav">
-          <router-link to="/" class="nav-link">首页</router-link>
-          <router-link to="/hotels" class="nav-link">探索酒店</router-link>
+          <router-link
+            to="/"
+            class="nav-link"
+          >
+            首页
+          </router-link>
+          <router-link
+            to="/hotels"
+            class="nav-link"
+          >
+            探索酒店
+          </router-link>
           <template v-if="userStore.token">
-            <router-link to="/bookings" class="nav-link">我的预订</router-link>
+            <router-link
+              to="/bookings"
+              class="nav-link"
+            >
+              我的预订
+            </router-link>
             <div class="user-menu">
-              <div class="user-avatar">{{ userStore.userInfo?.username?.charAt(0)?.toUpperCase() }}</div>
-              <button class="btn btn-ghost" @click="handleLogout">退出</button>
+              <div class="user-avatar">
+                {{ userStore.userInfo?.username?.charAt(0)?.toUpperCase() }}
+              </div>
+              <button
+                class="btn btn-ghost"
+                @click="handleLogout"
+              >
+                退出
+              </button>
             </div>
           </template>
           <template v-else>
-            <router-link to="/login" class="btn btn-ghost">登录</router-link>
-            <router-link to="/register" class="btn btn-primary">注册</router-link>
+            <router-link
+              to="/login"
+              class="btn btn-ghost"
+            >
+              登录
+            </router-link>
+            <router-link
+              to="/register"
+              class="btn btn-primary"
+            >
+              注册
+            </router-link>
           </template>
         </nav>
       </div>
     </header>
-    <main class="main-content"><router-view /></main>
-    <footer v-if="!isFullPage" class="footer">
+    <main class="main-content">
+      <router-view />
+    </main>
+    <footer
+      v-if="!isFullPage"
+      class="footer"
+    >
       <div class="container footer-content">
         <div class="footer-brand">
           <div class="footer-logo">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 21V7l9-4 9 4v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21V13h6v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+            ><path
+              d="M3 21V7l9-4 9 4v14"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            /><path
+              d="M9 21V13h6v8"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            /></svg>
             Luxstay
           </div>
           <p>发现世界各地的精选酒店，享受非凡旅程</p>
@@ -41,7 +123,11 @@
         </div>
       </div>
     </footer>
-    <Toast :visible="toast.show" :message="toast.message" :type="toast.type" />
+    <Toast
+      :visible="toast.show"
+      :message="toast.message"
+      :type="toast.type"
+    />
     <Confirm 
       :visible="confirm.show" 
       :title="confirm.title" 

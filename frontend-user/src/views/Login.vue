@@ -2,29 +2,68 @@
   <div class="auth-page">
     <div class="auth-left">
       <div class="auth-brand">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 21V7l9-4 9 4v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21V13h6v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+        ><path
+          d="M3 21V7l9-4 9 4v14"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        /><path
+          d="M9 21V13h6v8"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        /></svg>
         <h1>Luxstay</h1>
-        <p>探索全球精选酒店<br />开启您的非凡旅程</p>
+        <p>探索全球精选酒店<br>开启您的非凡旅程</p>
       </div>
     </div>
     <div class="auth-right">
       <div class="auth-form-wrap fade-in-up">
         <h2>欢迎回来</h2>
-        <p class="auth-subtitle">登录您的账户继续预订</p>
+        <p class="auth-subtitle">
+          登录您的账户继续预订
+        </p>
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
             <label>用户名</label>
-            <input v-model="form.username" type="text" class="input" placeholder="请输入用户名" required />
+            <input
+              v-model="form.username"
+              type="text"
+              class="input"
+              placeholder="请输入用户名"
+              required
+            >
           </div>
           <div class="form-group">
             <label>密码</label>
-            <input v-model="form.password" type="password" class="input" placeholder="请输入密码" required />
+            <input
+              v-model="form.password"
+              type="password"
+              class="input"
+              placeholder="请输入密码"
+              required
+            >
           </div>
-          <button type="submit" class="btn btn-primary btn-block" :disabled="loading">
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            :disabled="loading"
+          >
             {{ loading ? '登录中...' : '登录' }}
           </button>
         </form>
-        <p class="auth-link">还没有账号？<router-link to="/register">立即注册</router-link></p>
+        <p class="auth-link">
+          还没有账号？<router-link to="/register">
+            立即注册
+          </router-link>
+        </p>
       </div>
     </div>
   </div>
